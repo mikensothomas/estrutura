@@ -78,6 +78,53 @@ void inserirNoMeio(No **lista, int ant, int num) {
     }
 }
 
+void buscar_na_lista(No **lista, int num){
+    No *auxi = *lista;
+    while (auxi->valor != num && auxi->proximo){
+        auxi = auxi->proximo;
+    }
+    if(auxi->valor == num){
+        printf("O número %d foi encontrado\n", auxi->valor);
+    } else {
+        printf("O número %d não foi encontrado\n", num);
+        return;
+    }
+    
+}
+
+void inserir_ordenado(No **lista, int num){
+    No *auxi, *novo = (No *)malloc(sizeof(No));
+
+    if(novo){
+        novo->valor = num;
+
+        if(*lista == NULL){
+            novo->proximo = NULL;
+            novo->anterior = NULL;
+            *lista = novo;
+        } else {
+            if(novo->valor < (*lista)->valor){
+                novo->proximo = *lista;
+                (*lista)->anterior = novo;
+                *lista = novo;
+            } else {
+                auxi = *lista;
+                while (auxi->proximo && novo->valor > auxi->proximo->valor){
+                    auxi = auxi->proximo;
+                }
+                novo->proximo = auxi->proximo;
+                if(auxi->proximo){
+                    auxi->proximo->anterior = novo;
+                }
+                novo->anterior = auxi;
+                auxi->proximo = novo;
+            }
+        } 
+    } else {
+        printf("Erro ao alocar memória");
+    }
+}
+
 void imprimirLista(No **lista){
     No *auxi = *lista;
 
@@ -116,7 +163,7 @@ int main(){
 
         do{
             printf("Faça uma escolha: ");
-            printf("\n\t0 - Sair\n\t1 - InserirI\n\t2 - InserirF\n\t3 - InserirM\n\t4 - Imprimir\n\t5 - ImprimirC\n");
+            printf("\n\t0 - Sair\n\t1 - InserirI\n\t2 - InserirF\n\t3 - InserirM\n\t4 - Imprimir\n\t5 - ImprimirC\n\t6 - Buscar\n\t7 - InserirO\n");
             scanf("%d", &opcao);
             
             switch (opcao){
@@ -144,6 +191,16 @@ int main(){
             case 5:
                 ultimoNo = ultimo(&lista);
                 imprimir_contrario(&ultimoNo);
+                break;
+            case 6:
+                printf("Digite o número: ");
+                scanf("%d", &numero);
+                buscar_na_lista(&lista, numero);
+                break;
+            case 7:
+                printf("Digite o número: ");
+                scanf("%d", &numero);
+                inserir_ordenado(&lista, numero);
                 break;
             default:
                 printf("Número inválido.\n");
