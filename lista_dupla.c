@@ -164,7 +164,7 @@ int main(){
 
         do{
             printf("Faça uma escolha: ");
-            printf("\n\t0 - Sair\n\t1 - InserirI\n\t2 - InserirF\n\t3 - InserirM\n\t4 - Imprimir\n\t5 - ImprimirC\n\t6 - Buscar\n\t7 - InserirO\n");
+            printf("\n\t0 - Sair\n\t1 - InserirI\n\t2 - InserirF\n\t3 - InserirM\n\t4 - Imprimir\n\t5 - ImprimirC\n\t6 - Buscar\n\t7 - InserirO\n\t8 - Remover\n");
             scanf("%d", &opcao);
             
             switch (opcao){
