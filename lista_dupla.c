@@ -68,7 +68,8 @@ void inserirNoMeio(No **lista, int ant, int num) {
             }
             if(aux->valor == ant){
                 novo->proximo = aux->proximo;
-                aux->proximo->anterior = novo;
+                if(aux->proximo)
+                    aux->proximo->anterior = novo;
                 novo->anterior = aux;
                 aux->proximo = novo;
             }
