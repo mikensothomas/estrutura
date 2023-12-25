@@ -126,6 +126,10 @@ void inserir_ordenado(No **lista, int num){
     }
 }
 
+void remover(No **lsta, int num){
+    
+}
+
 void imprimirLista(No **lista){
     No *auxi = *lista;
 
