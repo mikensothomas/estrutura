@@ -126,8 +126,37 @@ void inserir_ordenado(No **lista, int num){
     }
 }
 
-void remover(No **lsta, int num){
-    
+void remover_na_lista(No **lista, int num) {
+    No *removido, *auxi;
+
+    if (*lista == NULL) {
+        printf("Lista vazia, nada para remover.\n");
+    } else {
+        auxi = *lista;
+
+        while (auxi->proximo && auxi->valor != num) {
+            auxi = auxi->proximo;
+        }
+
+        if (auxi->valor == num) {
+            removido = auxi;
+
+            if (auxi->anterior) {
+                auxi->anterior->proximo = auxi->proximo;
+            } else {
+                *lista = auxi->proximo;
+            }
+
+            if (auxi->proximo) {
+                auxi->proximo->anterior = auxi->anterior;
+            }
+
+            free(removido);
+            printf("Elemento %d removido da lista.\n", num);
+        } else {
+            printf("O número %d não existe na lista.\n", num);
+        }
+    }
 }
 
 void imprimirLista(No **lista){
@@ -206,6 +235,11 @@ int main(){
                 printf("Digite o número: ");
                 scanf("%d", &numero);
                 inserir_ordenado(&lista, numero);
+                break;
+            case 8:
+                printf("Digite o número: ");
+                scanf("%d", &numero);
+                remover_na_lista(&lista, numero);
                 break;
             default:
                 printf("Número inválido.\n");
