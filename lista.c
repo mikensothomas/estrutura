@@ -48,30 +48,6 @@ void inserir_no_final(NO **lista, int num){
     } 
 }
 
-/*void remover_na_lista(NO **lista, int num){
-    NO *removido, *auxi;
-
-    if(*lista == NULL){
-        printf("Lista vazia nada para remover.\n");
-    } else {
-        if((*lista)->valor == num){
-            removido = *lista;
-            *lista =  removido->proximo;
-        } else {
-            auxi = *lista;
-            while (auxi->proximo && auxi->proximo->valor != num){
-                auxi = auxi->proximo;
-            }
-            if((*lista) != NULL && (*lista)->proximo != NULL){
-                removido = (*lista)->proximo;
-                (*lista)->proximo = removido->proximo;
-            }
-        }
-        if(removido){
-            free(removido);
-        }
-    }
-}*/
 void remover_na_lista(NO** lista, int num) {
     NO* removido;
     NO* auxi;
@@ -88,7 +64,7 @@ void remover_na_lista(NO** lista, int num) {
                 auxi = auxi->proximo;
             }
 
-            if (auxi->proximo != NULL) {
+            if (auxi->proximo->valor == num) {
                 removido = auxi->proximo;
                 auxi->proximo = removido->proximo;
             } else {
