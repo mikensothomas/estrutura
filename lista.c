@@ -76,6 +76,63 @@ void remover_na_lista(NO** lista, int num) {
     }
 }
 
+/*void inserir_no_meio_da_lista(NO **lista, int ant, int num){
+    NO *auxi, *novo = (NO *) malloc(sizeof(NO));
+    
+    if(novo){
+        novo->valor = num;
+        if(*lista == NULL){
+            printf("Lista vaizia não tem como inseri no meio.\n");
+        } else {
+            if((*lista)->valor == ant){
+                (*lista)->proximo = novo;
+                if(novo->proximo)
+                    novo->proximo = (*lista)->proximo;
+            } else {
+                auxi = *lista;
+                while (auxi->proximo && auxi->proximo->valor != ant){
+                    auxi = auxi->proximo;
+                }
+                auxi->proximo = novo;
+            }
+        }
+    } else {
+        printf("Erro ao alocar memória.\n");
+    }
+}*/
+
+void inserir_no_meio_da_lista(NO** lista, int ant, int num) {
+    NO *auxi, *novo;
+
+    novo = (NO*)malloc(sizeof(NO));
+
+    if (novo) {
+        novo->valor = num;
+
+        if (*lista == NULL) {
+            *lista = novo;
+            novo->proximo = NULL;
+        } else {
+            auxi = *lista;
+            while (auxi->valor != ant && auxi->proximo) {
+                auxi = auxi->proximo;
+            }
+
+            if (auxi->valor == ant) {
+                // Encontrou o nó com o valor 'ant'
+                novo->proximo = auxi->proximo;
+                auxi->proximo = novo;
+            } else {
+                // Não encontrou o nó com o valor 'ant'
+                printf("Nó com valor %d não encontrado na lista.\n", ant);
+                free(novo); // Libera a memória alocada para o novo nó
+            }
+        }
+    } else {
+        printf("Erro ao alocar memória.\n");
+    }
+}
+
 void imprimr_lista(NO **lista){
     NO *auxi = *lista;
 
@@ -93,11 +150,11 @@ void imprimr_lista(NO **lista){
 int main(){
 
     NO *lista = NULL;
-    int opcao, numero;
+    int opcao, ant, numero;
 
     do{
         printf("MENU: \n");
-        printf("\t0 - Sair\n\t1 - Inserir\n\t2 - Imprimir\n\t3 - Remover\n\t4 - InserirF\n");
+        printf("\t0 - Sair\n\t1 - Inserir\n\t2 - Imprimir\n\t3 - Remover\n\t4 - InserirF\n\t5 - InserirM\n");
         scanf("%d", &opcao);
 
         switch (opcao){
@@ -123,6 +180,11 @@ int main(){
             printf("Digite o número a ser inserido: ");
             scanf("%d", &numero);
             inserir_no_final(&lista, numero);
+            break;
+        case 5:
+            printf("Digite o número da referência e o número a ser inserido: ");
+            scanf("%d%d", &ant, &numero);
+            inserir_no_meio_da_lista(&lista, ant, numero);
             break;
         default :
             printf("Número inválido.\n");
