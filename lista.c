@@ -119,13 +119,10 @@ void inserir_no_meio_da_lista(NO** lista, int ant, int num) {
             }
 
             if (auxi->valor == ant) {
-                // Encontrou o nó com o valor 'ant'
                 novo->proximo = auxi->proximo;
                 auxi->proximo = novo;
             } else {
-                // Não encontrou o nó com o valor 'ant'
                 printf("Nó com valor %d não encontrado na lista.\n", ant);
-                free(novo); // Libera a memória alocada para o novo nó
             }
         }
     } else {
