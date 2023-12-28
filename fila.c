@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <locale.h>
-
+/*S*/
 typedef struct NO{
     int valor;
     struct NO *proximo;
