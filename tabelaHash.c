@@ -24,9 +24,9 @@ void inserir_na_tabela(int t[], int valor){
 
 int buscar_na_tabela(int t[], int chave){
     int id = funcaoHash(chave);
-    printf("O indice gerado é: %d e a chave gerada é: %d \n", id, t[id]);
+    printf("O indice gerado é: %d \n", id);
     
-    while (t[id] == 0){
+    while (t[id] != 0){
 
         if(t[id] == chave){
             return chave;
@@ -44,7 +44,7 @@ void imprimir_tabela(int t[]){
 }
 
 int main(){
-    int opcao, numero, tabela[TAM];
+    int opcao, numero, tabela[TAM],retorno;
     int id = funcaoHash(numero);
     inicializar_tabela(tabela);
 
@@ -65,7 +65,12 @@ int main(){
     case 2:
         printf("Digite o número a ser buscado: ");
         scanf("%d", &numero);
-        buscar_na_tabela(tabela, numero);
+        retorno = buscar_na_tabela(tabela, numero);
+        if(retorno != 0){
+            printf("O número gerado é: %d ", retorno);
+        } else {
+            printf("O número %d não encotrado ", numero);
+        }
         break;
     case 3:
         imprimir_tabela(tabela);
