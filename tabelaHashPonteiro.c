@@ -9,15 +9,51 @@ typedef struct NO{
     struct NO *proximo;
 }NO;
 
-typedef struct LISTA{
+typedef struct{
     struct NO *inicio;
     int tam;
-}LISTA;
+}Lista;
 
+void inicializa_lista(Lista *lista){
+    lista->inicio = NULL;
+    lista->tam = 0;
+}
 
-void inicializar_tabela(int t[]){
+void inserir_na_list(Lista *lista, int num){
+    NO *novo = (NO *) malloc(sizeof(NO));
+
+    if(novo){
+        novo->chave = num;
+        novo->proximo = lista->inicio;
+        lista->inicio = novo;
+        lista->tam++;
+    }
+}
+
+int busca_na_lista(Lista *lista, int num){
+    NO *auxi = lista->inicio;
+
+    while (auxi && auxi->chave != num){
+        auxi = auxi->proximo;
+    }
+    if(auxi){
+        return auxi->chave;
+    }
+    return 0;
+}
+
+void imprimir_lsita(Lista *lista){
+    NO *auxi = lista->inicio;
+    printf(" tam %d ", lista->tam);
+    while (auxi){
+        printf("%d ", auxi->chave);
+        auxi = auxi->proximo;
+    }
+}
+
+void inicializar_tabela(Lista t[]){
     for (int  i = 0; i < TAM; i++){
-        t[i] = 0;
+        inicializa_lista(&t[i]);
     }
 }
 
@@ -25,38 +61,30 @@ int funcaoHash(int chave){
     return chave % TAM;
 }
 
-void inserir_na_tabela(int t[], int valor){
+void inserir_na_tabela(Lista t[], int valor){
     int id = funcaoHash(valor);
-
-    if(t[id] == 0){
-        t[id] = valor;
-    }
+    inserir_na_list(&t[id], valor);
 }
 
-int buscar_na_tabela(int t[], int chave){
+int buscar_na_tabela(Lista t[], int chave){
     int id = funcaoHash(chave);
     printf("O indice gerado é: %d \n", id);
     
-    while (t[id] != 0){
-
-        if(t[id] == chave){
-            return chave;
-        } else {
-            id = funcaoHash(id + 1);
-        }
-    }
-    return 0;
+    return busca_na_lista(&t[id], chave);
 }
 
-void imprimir_tabela(int t[]){
+void imprimir_tabela(Lista t[]){
     for (int i = 0; i < TAM; i++){
-        printf("%d = %d\n", i, t[i]);
+        printf("\n%2d = ", i);
+        imprimir_lsita(&t[i]);
     }
+    printf("\n");
 }
 
 int main(){
-    int opcao, numero, tabela[TAM],retorno;
-    int id = funcaoHash(numero);
+    int opcao, numero,retorno;
+    //int id = funcaoHash(numero);
+    Lista tabela[TAM];
     inicializar_tabela(tabela);
 
     do{
@@ -93,8 +121,5 @@ int main(){
       }
     } while (opcao);
     
-    return 0;
-}
-int main(){
     return 0;
 }
